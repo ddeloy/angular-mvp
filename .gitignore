@@ -40,3 +40,10 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Ignore environment files
+src/environments/environment.ts
+src/environments/environment.prod.ts
+
+# Ignore angular.json - I have 2 files that toggle for dev and prod
+angular.json
