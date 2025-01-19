@@ -1,0 +1,22 @@
+<div>
+  <h2>Pivot Moving Averages</h2>
+  <div>
+    <h4>Enter a stock symbol and click 'Fetch Data' to load Pivot Moving Averages</h4>
+    <input [(ngModel)]="symbol" type="text" placeholder="Enter stock symbol" />
+    <button (click)="fetchData()">Fetch Data</button>
+    <button (click)="reset()" style="margin-left: 8px;">Reset</button>
+  </div>
+  <div style="margin-top: 1rem;">
+    <p>
+      This chart, inspired by Mark Fisher's <em><a href="https://www.thelogicaltraderonline.net/" target="_blank">The Logical Trader</a></em>, displays the 14-day, 30-day, and 50-day moving averages of the pivot numbers.
+    </p>
+  </div>
+  <div class="insights">Current Market Trend: {{ trendInsights }}</div>
+  <div style="margin-top: 2rem; text-align: center;">
+    <h4>
+      Pivot Moving Averages (PMA)
+      <span class="info-icon" title="Pivot number average for 14, 30, and 50 day. The emphasis is on comparing the slope of averages to identify trend.">ℹ️</span>
+    </h4>
+    <canvas id="pivot-chart" width="800" height="400"></canvas>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+.stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.stat {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.page-description {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+
+  p {
+    margin: 0.5rem 0;
+  }
+
+  strong {
+    color: #007bff;
+  }
+}

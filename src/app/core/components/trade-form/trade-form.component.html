@@ -1,0 +1,31 @@
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="symbol">Stock Symbol:</label>
+    <input id="symbol" type="text" [(ngModel)]="trade.symbol" name="symbol" required placeholder="e.g., AAPL" />
+  </div>
+  <div>
+    <label for="action">Action:</label>
+    <select id="action" [(ngModel)]="trade.action" name="action" required>
+      <option value="buy">Buy</option>
+      <option value="sell">Sell</option>
+    </select>
+  </div>
+  <div>
+    <label for="quantity">Quantity:</label>
+    <input
+      id="quantity"
+      type="number"
+      [(ngModel)]="trade.quantity"
+      [ngModelOptions]="{ updateOn: 'blur' }"
+      name="quantity"
+      placeholder="Enter quantity"
+      min="1"
+      required
+    />
+  </div>
+  <div>
+    <label for="price">Price (per unit):</label>
+    <input id="price" type="number" [(ngModel)]="trade.price" name="price" step="0.01" required placeholder="Enter price" />
+  </div>
+  <button type="submit">Plan Trade</button>
+</form>

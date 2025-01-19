@@ -1,0 +1,79 @@
+
+<h2>Trades</h2>
+<!-- Plain text implementation -->
+<!--<app-popover [popoverTitle]="'About Trades'"
+             [popoverContent]="'This section allows you to plan, execute, and track your trades. You can specify a stock symbol, action (buy or sell), quantity, and price. Planned trades are displayed below.'">
+</app-popover>-->
+<!-- Define a dynamic template -->
+<ng-template #customTemplate>
+  <div>
+    <strong>Rich Content:</strong>
+    <p>This popover uses dynamic, templated content with bindings.</p>
+  </div>
+</ng-template>
+
+<!-- Popover with Trigger -->
+<app-popover [content]="customTemplate" position="left" [popoverTitle]="'About Trades'">
+  <button class="popovers">ℹ️ More Info</button> <!-- Trigger -->
+</app-popover>
+
+
+
+<app-trade-form (tradePlanned)="handleTradePlanned($event)"></app-trade-form>
+
+<h3>Planned Trades</h3>
+<table>
+  <thead>
+  <tr>
+    <th>Symbol</th>
+    <th>Strategy</th>
+    <th>Notes</th>
+    <th>Action</th>
+    <th>Quantity</th>
+    <th>Price</th>
+    <th>Total</th>
+    <th>Profit/Loss</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngIf="plannedTrades.length === 0">
+    <td colspan="9" class="no-trades-placeholder">No trades planned yet.</td>
+  </tr>
+  <tr *ngFor="let trade of plannedTrades; let i = index">
+    <td>{{ trade.symbol }}</td>
+    <td>
+      <select [(ngModel)]="trade.strategy" (ngModelChange)="saveTradesToLocalStorage()">
+        <option value="" disabled>Select Strategy</option>
+        <option *ngFor="let strat of strategies" [value]="strat">
+          {{ strat }}
+        </option>
+      </select>
+    </td>
+    <td>
+      <input
+        type="text"
+        [(ngModel)]="trade.notes"
+        (ngModelChange)="saveTradesToLocalStorage()"
+        placeholder="Click to add notes"
+      />
+    </td>
+    <td>{{ trade.action }}</td>
+    <td>{{ trade.quantity }}</td>
+    <td>{{ trade.price | currency }}</td>
+    <td>{{ (trade.quantity * trade.price) | currency }}</td>
+    <td>{{ trade.profitLoss ? (trade.profitLoss | currency) : '-' }}</td>
+    <td>
+      <button (click)="executeTrade(i)">Execute</button>
+      <button (click)="deleteTrade(i)">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<h3>Summary</h3>
+<div class="trade-summary">
+  <p><strong>Total Buy:</strong> {{ summary.totalBuy | currency }}</p>
+  <p><strong>Total Sell:</strong> {{ summary.totalSell | currency }}</p>
+  <p><strong>Overall Profit/Loss:</strong> {{ summary.overallProfitLoss | currency }}</p>
+</div>
