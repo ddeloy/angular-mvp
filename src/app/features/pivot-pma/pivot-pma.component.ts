@@ -1,18 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // Required for ngModel
 import { Chart, registerables, Plugin, Scale } from 'chart.js';
-import { fetchLast5DaysData } from '../../core/services/api'; // Adjust the path if necessary
+import { fetchLast5DaysData } from '../../core/services/api'; // Adjust path if necessary
 
 @Component({
   selector: 'app-pivot-pma',
-  standalone: true, // Mark as a standalone component
+  standalone: true, // Use standalone component
   imports: [FormsModule], // Import FormsModule for ngModel
   templateUrl: './pivot-pma.component.html',
   styleUrls: ['./pivot-pma.component.scss'],
 })
 export class PivotPmaComponent implements OnInit, OnDestroy {
-  public symbol: string = ''; // Make it public for ngModel
-  public trendInsights: string = ''; // Make it public for template access
+  public symbol: string = ''; // Two-way binding for stock symbol
+  public trendInsights: string = ''; // Market trend insights
   chartInstance: Chart | null = null;
 
   private verticalLinePlugin: Plugin<'line'> = {
@@ -44,6 +44,7 @@ export class PivotPmaComponent implements OnInit, OnDestroy {
           ctx.lineTo(x, yLow);
           ctx.stroke();
 
+          // Draw close marker
           ctx.fillStyle = 'black';
           const markerSize = 4;
           ctx.beginPath();
@@ -56,7 +57,7 @@ export class PivotPmaComponent implements OnInit, OnDestroy {
   };
 
   constructor() {
-    // Register all Chart.js components
+    // Register Chart.js components and plugins
     Chart.register(...registerables, this.verticalLinePlugin);
   }
 
@@ -98,16 +99,63 @@ export class PivotPmaComponent implements OnInit, OnDestroy {
         data: {
           labels: dates,
           datasets: [
-            { label: '14-Day Pivot Num Avg', data: pivotNums14, borderColor: 'rgba(75, 192, 192, 1)', backgroundColor: 'rgba(75, 192, 192, 0.1)', borderWidth: 2 },
-            { label: '30-Day Pivot Num Avg', data: pivotNums30, borderColor: 'rgba(192, 75, 75, 1)', backgroundColor: 'rgba(192, 75, 75, 0.1)', borderWidth: 2 },
-            { label: '50-Day Pivot Num Avg', data: pivotNums50, borderColor: 'rgba(75, 75, 192, 1)', backgroundColor: 'rgba(75, 75, 192, 0.1)', borderWidth: 2 },
-            { label: 'Highs', data: highs.slice(-50), borderColor: 'rgba(0, 0, 0, 0.1)', borderWidth: 1 },
-            { label: 'Lows', data: lows.slice(-50), borderColor: 'rgba(0, 0, 0, 0.1)', borderWidth: 1 },
-            { label: 'Closes', data: closes.slice(-50), borderColor: 'rgba(0, 0, 0, 0.1)', borderWidth: 1 },
+            {
+              label: '14-Day Pivot Num Avg',
+              data: pivotNums14,
+              borderColor: 'rgba(75, 192, 192, 1)',
+              backgroundColor: 'rgba(75, 192, 192, 0.1)',
+              borderWidth: 2,
+              tension: 0.4,
+              pointRadius: 2,
+              pointHoverRadius: 3,
+            },
+            {
+              label: '30-Day Pivot Num Avg',
+              data: pivotNums30,
+              borderColor: 'rgba(192, 75, 75, 1)',
+              backgroundColor: 'rgba(192, 75, 75, 0.1)',
+              borderWidth: 2,
+              tension: 0.4,
+              pointRadius: 2,
+              pointHoverRadius: 3,
+            },
+            {
+              label: '50-Day Pivot Num Avg',
+              data: pivotNums50,
+              borderColor: 'rgba(75, 75, 192, 1)',
+              backgroundColor: 'rgba(75, 75, 192, 0.1)',
+              borderWidth: 2,
+              tension: 0.4,
+              pointRadius: 2,
+              pointHoverRadius: 3,
+            },
+            {
+              label: 'Highs',
+              data: highs.slice(-50),
+              borderColor: 'rgba(0, 0, 0, 0.1)',
+              borderWidth: 1,
+            },
+            {
+              label: 'Lows',
+              data: lows.slice(-50),
+              borderColor: 'rgba(0, 0, 0, 0.1)',
+              borderWidth: 1,
+            },
+            {
+              label: 'Closes',
+              data: closes.slice(-50),
+              borderColor: 'rgba(0, 0, 0, 0.1)',
+              borderWidth: 1,
+            },
           ],
         },
         options: {
           responsive: true,
+          plugins: {
+            tooltip: {
+              mode: 'index',
+            },
+          },
           scales: {
             x: { type: 'category', title: { display: true, text: 'Dates' } },
             y: { title: { display: true, text: 'Pivot Num' } },
