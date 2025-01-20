@@ -28,6 +28,14 @@ export const routes: Routes = [
         (m) => m.RESOURCES_ROUTES
       ),
   },
+
+  {
+    path: 'about',
+    loadChildren: () =>
+      import('./features/about/about.routes').then(
+        (m) => m.ABOUT_ROUTES
+      ),
+  },
   {
     path: 'trades',
     loadChildren: () =>

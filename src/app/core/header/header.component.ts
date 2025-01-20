@@ -9,8 +9,8 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./header.component.scss'], // Correct plural spelling for styleUrls
 })
 export class HeaderComponent {
-  clearAllData(): void {
+ /* clearAllData(): void {
     localStorage.clear();
     window.alert('All data has been cleared from local storage.');
-  }
+  }*/
 }
