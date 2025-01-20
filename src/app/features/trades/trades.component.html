@@ -7,10 +7,25 @@
 <!-- Define a dynamic template -->
 <ng-template #customTemplate>
   <div>
-    <strong>Rich Content:</strong>
-    <p>This popover uses dynamic, templated content with bindings.</p>
+    <strong>Trades:</strong>
+    <p>
+      The <em>Trades</em> page allows you to plan, execute, and track trades dynamically.<br/>
+      It features a form for adding new trades, a table for managing planned trades, <br/>
+      inline profit/loss calculations for executed trades, and a dynamic aggregate profit loss summary.
+    </p>
+    <p>
+      Core Angular concepts include:
+    </p>
+    <ul>
+      <li>Two-way data binding with <code>ngModel</code>.</li>
+      <li>Event binding for form submission and actions.</li>
+      <li>Local storage for data persistence.</li>
+      <li>Reusable components like the trade form.</li>
+      <li>Notification system for user feedback.</li>
+    </ul>
   </div>
 </ng-template>
+
 
 <!-- Popover with Trigger -->
 <app-popover [content]="customTemplate" position="left" [popoverTitle]="'About Trades'">
@@ -43,13 +58,18 @@
   <tr *ngFor="let trade of plannedTrades; let i = index">
     <td>{{ trade.symbol }}</td>
     <td>
-      <select [(ngModel)]="trade.strategy" (ngModelChange)="saveTradesToLocalStorage()">
+      <select
+        class="strategy-select"
+        [(ngModel)]="trade.strategy"
+        (ngModelChange)="saveTradesToLocalStorage()"
+      >
         <option value="" disabled>Select Strategy</option>
         <option *ngFor="let strat of strategies" [value]="strat">
           {{ strat }}
         </option>
       </select>
     </td>
+
     <td>
       <input
         type="text"
@@ -65,7 +85,7 @@
     <td>{{ trade.profitLoss ? (trade.profitLoss | currency) : '-' }}</td>
     <td>
       <button (click)="executeTrade(i)">Execute</button>
-      <button (click)="deleteTrade(i)">Delete</button>
+      <button class="reset" (click)="deleteTrade(i)">Delete</button>
     </td>
   </tr>
   </tbody>

@@ -67,6 +67,7 @@ app-trade-form button:hover {
 /* Trade Summary */
 .trade-summary {
   margin-top: 1rem;
+  margin-bottom: 2rem;
   padding: 1rem;
   background-color: #f0f8ff;
   border: 1px solid #ddd;
@@ -76,4 +77,30 @@ app-trade-form button:hover {
 .trade-summary p {
   margin: 0.5rem 0;
   font-size: 1.1rem;
+}
+
+// Dropdown styling for strategy options
+.strategy-select {
+  width: 100%; /* Full-width */
+  padding: 8px 12px; /* Adjust padding for space around text */
+  font-size: 14px; /* Font size */
+  border: 1px solid #ccc; /* Border */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #f9f9f9; /* Light background */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23707070"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>'); /* Add chevron */
+  background-repeat: no-repeat; /* No repeat */
+  background-position: right 12px center; /* Position chevron */
+  background-size: 16px; /* Adjust size of chevron */
+  appearance: none; /* Remove default dropdown styling */
+  outline: none; /* Remove focus outline */
+  transition: border-color 0.3s;
+
+  &:hover {
+    border-color: #007bff; /* Highlight on hover */
+  }
+
+  &:focus {
+    border-color: #007bff; /* Focus border color */
+    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5); /* Subtle glow */
+  }
 }
