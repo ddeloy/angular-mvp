@@ -1,0 +1,38 @@
+.about-container {
+  display: flex;
+}
+
+.sidenav {
+  width: 250px;
+  padding: 1rem;
+  border-right: 1px solid #ccc;
+}
+
+.sidenav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidenav li {
+  margin: 0.5rem 0;
+}
+
+.sidenav a {
+  text-decoration: none;
+  color: #007bff;
+  transition: color 0.3s;
+
+  &.active {
+    font-weight: bold;
+    color: #0056b3;
+  }
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+}
+
+ul.nested-links {
+  margin-left: 0.5rem;
+}
